@@ -1,77 +1,11 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-9">
-        <h2><i class="fa fa-list fa-2x" style="color: #1ab394;"></i>  CLI Forklift</h2>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="<?php echo base_url('page/profile_minor');?>"><span class="fa fa-bank" style="color: navy;"></span> Home</a>
-            </li>
-            <li class="breadcrumb-item active">
-                <strong>CLI Forklift</strong>
-            </li>
-        </ol>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-3">
-        <div class="widget style1 lazur-bg">
-            <div class="row">
-                <div class="col-4">
-                    <i class="fa fa-list fa-5x"></i>
-                </div>
-                <div class="col-8 text-right">
-                    <span> TOTAL FORKLIFT </span>
-                    <h2 class="font-bold"><?php echo $totalForklift; ?></h2>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="widget style1 navy-bg">
-            <div class="row">
-                <div class="col-4">
-                    <i class="fa fa-exclamation-triangle fa-5x"></i>
-                </div>
-                <div class="col-8 text-right">
-                    <span> FORKLIFT OK </span>
-                    <h2 class="font-bold">0</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="widget style1 yellow-bg">
-            <div class="row">
-                <div class="col-4">
-                    <i class="fa fa-check-square-o fa-5x"></i>
-                </div>                       
-                <div class="col-8 text-right">
-                    <span> FORKLIFT REPAIR </span>                            
-                    <h2 class="font-bold">0</h2>                       
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="widget style1 red-bg">
-            <div class="row">
-                <div class="col-4">
-                    <i href="#" class="fa fa-pencil fa-5x"></i>
-                </div>
-                <div class="col-8 text-right" >
-                    <span> FORKLIFT BREAKDOWN </span>
-                    <h2 class="font-bold">0</h2>
-                </div>
-            </div>
-        </div>
-    </div>  
-</div>
-<div class="wrapper wrapper-content animated fadeInRight ecommerce">
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="ibox">
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+     <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
                 <div class="ibox-title">
-                        <h5>Data Material Minor (Approved)</h5>
+                    <h3 class="text-success">TABEL CLEANING FORKLIFT</h3>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -84,99 +18,146 @@
                                 </li>
                                 <li><a href="#" class="dropdown-item">Config option 2</a>
                                 </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
                         </div>
-                    </div>
-				<div class="ibox-content">
-					<div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" >
-                            <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">Nama Forklift</th>
-                                    <th class="text-center">Merk</th>
-                                    <th class="text-center">Serial Number</th>
-                                    <th class="text-center">PIC</th>
-                                    <th class="text-center">Area</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $no=1; foreach ($data_minorapproved2 as $row){ ?> 
-                                <tr>
-                                    <td>
-                                        <?php echo $no++;?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->txtBatchNo ?>
-                                    </td>
-                                    <!-- <td>
-                                        <?php echo $row->txtItemCode ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->txtItemDescription  ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->fltActualWeight  ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <?php echo $row->txtUomIngredient  ?>
-                                    </td> -->
-                                    <td class="text-center">
-                                        <?php echo $row->intCountNo  ?>
-                                    </td>
-                                    <td class="text-center">
-                                            <?php
-                                            if ($row->bitOpen == "1")
-                                             {
-                                                echo "<i class='fa fa-times text-danger' ></i>";
-                                             } elseif ($row->bitProgress == "1") {
-                                                echo "<i class='fa fa-arrow-right text-success' ></i>";
-                                             } elseif ($row->bitClose == "1") {
-                                                echo "<i class='fa fa-check text-navy' ></i>";
-                                             } elseif ($row->bitHold == "1") {
-                                                echo "<i class='fa fa-warning text-warning' ></i>";
-                                             } elseif ($row->bitReject == "1") {
-                                                echo "<i class='fa fa-trash text-danger' ></i>"; # code...
-                                             } ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->txtInsertedBy  ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->dtmInserted  ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <?php 
-                                        if ($row->bitOpen == "1") 
-                                        { ?>
-                                        <button class="btn btn-success btn-xl btn-detail" data-id="<?php echo $row->intChecklistID;?>" txtBatchNo="<?php echo $row->txtBatchNo;?>"> <i class="fa fa-shopping-cart"></i>  Start Batching</button>
-                                        <?php
-                                        } else { ?>
-                                            -
-                                        <?php }
+                    <a href="#" data-toggle="modal" data-target="#modalAdd" class="btn btn-success">Create Task</a>
+                </div>
+                
+            </div>
+            <div class="ibox">
+                <div class="ibox-content">
 
+                <!-- alert notification -->
+                <?= $this->session->flashdata('message'); ?>
+                                <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover dataTables-example" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 3%;">#</th>
+                                        <th>AREA</th>
+                                        <th>NAME UNIT</th>
+                                        <th>ITEM PART</th>
+                                        <th>SERIAL NUMBER</th>
+                                        <th>PIC FORKLIFT</th>
+                                        <th>TAHUN PEMBUATAN</th>
+                                        <th>DETAIL</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody style="width:100%" id="show_data">
+                                    <?php 
+                                    $no = 1;
+                                    foreach($forklift -> result_array() as $dt) :
                                     ?>
-                                        <!-- <button class="btn btn-success btn-xs batch" data-id="<?php echo $row->intChecklistID;?>" txtItemCode="<?php echo $row->txtItemCode;?>"> <i class="fa fa-shopping-cart"></i> Start Batching</button> -->
-                                    </td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                            <tfoot>
-                                
-                            </tfoot>
-                        </table>
-                        <a href="<?php echo base_url('page/transaction_batching');?>"><button class="btn btn-primary"><i class="fa fa-arrow-right"></i> GO TO TRANSACTION</button></a>
-                    </div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                        <tr>
+                                            <td><?= $no++ ?></td>
+                                            <td><?= $dt['txtArea']; ?></td>
+                                            <td><?= $dt['txtVersionwh']; ?></td>
+                                            <td><?= $dt['txtVersioneng']; ?></td>
+                                            <td><?= $dt['txtSerialnumber']; ?></td>
+                                            <td><?= $dt['txtPicforklift']; ?></td>
+                                            <td><?= $dt['intTahunpembuatan']; ?></td>
+                                            <td>
+                                                <a href="" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Detail</a>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i> Update</a>
+                                                <button class="btn btn-danger btn-sm item_delete" data="<?= $dt['intForkliftwhID']; ?>"><i class="fa fa-trash"></i> Delete</button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                    </table>
+                                </div>
+                </div>
+            </div>
+        </div>
+     </div>
 </div>
+
+
+<!-- Modal Add -->
+<div class="modal fade" id="modalAdd" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Scan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <label for="QR Code">QR Code</label>
+            <input type="numeric" class="form-control"  id="txtSerialnumber" name="txtserialnumber">
+        </div>
+        <div class="form-group">
+            <label for="Area">AREA</label>
+            <input type="text" class="form-control" id="txtArea" name="txtarea" readonly>
+        </div>
+        <div class="form-group">
+            <label for="Name Unit">Version WH</label>
+            <input type="text" class="form-control" id="txtVersionwh" name="txtVersionwh" readonly>
+        </div>
+        <div class="form-group">
+            <label for="Item Part">Version ENG</label>
+            <input type="text" class="form-control" id="txtVersioneng" name="txtVersioneng" readonly>
+        </div>
+        <div class="form-group">
+            <label for="Serial Number">SERIAL NUMBER</label>
+            <input type="numeric" class="form-control" id="txtSerialnumberScan" name="txtSerialnumber" readonly>
+        </div>
+        <div class="form-group">
+            <label for="PIC Forklift">PIC FORKLIFT</label>
+            <input type="text" class="form-control" id="txtPicforklift" name="txtPicforklift" readonly>
+        </div>
+        <div class="form-group">
+            <label for="keterangan">TAHUN</label>
+            <input type="text" class="form-control" id="intTahunpembuatan" name="intTahunpembuatan" readonly>
+        </div>
+        <div class="form-group">
+            <label for="Jenis Task">JENIS TASK</label>
+            <select class="form-control" id="txtjenistask" name="txtjenistask">
+                <option value="1">Cleaning Unit</option>
+                <option value="2">Cleaning Battery</option>
+            </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Delete -->
+<form>
+<div class="modal fade" id="modalDelete" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="intForkliftwhID" id="intForkliftwhID" class="form-control" >
+       <h4>Are you sure want to delete this data?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="btn_delete" >Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
 <!-------------------------------------Versi Lama-------------------------------------------------------------->
 <div class="modal inmodal fade" id="ModalTransactMinor" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">

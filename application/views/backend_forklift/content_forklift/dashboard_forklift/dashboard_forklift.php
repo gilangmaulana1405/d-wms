@@ -9,16 +9,13 @@
 <!-- content -->
  <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>E-commerce Forklift</h2>
+        <h2>Forklift Dashboards</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="index.html">D-WMS</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <a>Page</a>
+                    <a href="index.html">My Profile</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong>Dashboard Forklift</strong>
+                    <strong>Forklift Dashboard</strong>
                 </li>
             </ol>
     </div>
@@ -35,19 +32,42 @@
                     <div class="card" style="width: 18rem;">
                         <img src="<?php echo base_url() ?>/assets/img/forklift/<?php echo $dt['txtGambar_forklift']; ?>" style="width: 250px; height: 250px" class="card-img-top" alt="...">
                         <div class="product-desc">
-                                    <span class="product-price">
-                                        <?=  $dt['txtModel']; ?>
-                                    </span>
+                        
+                        <?php if($dt['bitUsed'] == 1){ ?>
+                            <div class="d-flex justify-content-end">
+                                <div class="d-flex flex-row bd-highlight">
+                                    <span class="label label-primary">OK</span>
+                                </div>
+                            </div> 
+                        <?php } elseif($dt['bitRepair'] == 1){ ?>
+                               <div class="d-flex justify-content-end">
+                                <div class="d-flex flex-row bd-highlight">
+                                    <span class="label label-warning">Repair</span>
+                                </div>
+                            </div>
+                        <?php } elseif($dt['bitBreakdown'] == 1){ ?>
+                               <div class="d-flex justify-content-end">
+                                <div class="d-flex flex-row bd-highlight">
+                                    <span class="label label-danger">Breakdown</span>
+                                </div>
+                            </div>
+                        <?php } elseif($dt['bitIdle'] == 1){?>
+                             <div class="d-flex justify-content-end">
+                                  <div class="d-flex flex-row bd-highlight">
+                                        <span class="label label-success">Idle</span>
+                                  </div>
+                             </div>
+                        <?php }else{ ?>
+                        <?php } ?>
                                     <small class="text-muted"><?=  $dt['txtMerk']; ?></small>
                                     <a href="#" class="product-name"> <?= $dt['txtVersioneng']; ?></a>
 
                                     <div class="small m-t-xs">
-                                        Many desktop publishing packages and web page editors now.
+                                       Merupakan forklift jenis <?= $dt['txtIdentifikasi']; ?> Digunakan pada area <?= $dt['txtArea']; ?> sejak <?= $dt['dtmDeliverydate']; ?>
                                     </div>
                                     <div class="m-t text-righ">
 
                                         <a href=" <?= site_url('page/dashboard_forklift_detail/dashboard_forklift_detail?dt=') . $dt['intForkliftwhID']; ?>" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                                       
                                     </div>
                         </div>
                     </div>

@@ -14,6 +14,7 @@ class MY_Controller extends CI_Controller
         $this->load->model('Admin');
         $this->load->model('Roleacces_model');
         $this->load->model('Forklift_model');
+        $this->load->helper('tgl_indo');
         
         
         
@@ -99,7 +100,7 @@ class MY_Controller extends CI_Controller
         $this->load->view('backend_forklift/tamplate_forklift/index_profil_forklift', $data);
     }
 
-    // dashboard forklift
+    // DASHBOARD FORKLIFT
     public function render_dashboard_forklift($content, $data = NULL)
     {
         $data['forklift'] = $this->Roleacces_model->view_forklift();
@@ -118,15 +119,18 @@ class MY_Controller extends CI_Controller
     // CLI FORKLIFT
     public function render_cli_forklift($content, $data = NULL)
     {
-        $data['chat'] = $this->Admin->get_chat()->row_array();
-        $data['data_chat'] = $this->Admin->get_chat();
-        $data['totalForklift'] = $this->Forklift_model->totalForklift();
-        $data['forkliftOK'] = $this->Forklift_model->forkliftOK();
-        $data['forkliftRepair'] = $this->Forklift_model->forkliftRepair();
-        $data['forkliftBreakdown'] = $this->Forklift_model->forkliftBreakdown();
+        $data['forklift'] = $this->Forklift_model->get_cli_forklift();
         $data['left_sidebar'] = $this->load->view('backend_forklift/tamplate_forklift/left_sidebar_forklift', $data, TRUE);
         $data['contentnya'] = $this->load->view('backend_forklift/content_forklift/master_forklift/cli_forklift', $data, TRUE);
         $this->load->view('backend_forklift/tamplate_forklift/index_profil_forklift', $data);
+        
+        // $data['data_minorapproved2'] = $this->Roleacces_model->get_forklift($intForkliftwhID);
+        // $data['chat'] = $this->Admin->get_chat()->row_array();
+        // $data['data_chat'] = $this->Admin->get_chat();
+        // $data['totalForklift'] = $this->Forklift_model->totalForklift();
+        // $data['forkliftOK'] = $this->Forklift_model->forkliftOK();
+        // $data['forkliftRepair'] = $this->Forklift_model->forkliftRepair();
+        // $data['forkliftBreakdown'] = $this->Forklift_model->forkliftBreakdown();
     }
 
 }

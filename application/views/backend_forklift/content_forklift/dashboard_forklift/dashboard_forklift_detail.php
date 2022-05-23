@@ -9,85 +9,42 @@
 <!-- content -->
  <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>E-commerce Forklift</h2>
+        <h2>Forklift Dashboards Detail</h2>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="index.html">D-WMS</a>
+                    <a href="index.html">My Profile</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a>Page</a>
+                    <a>Forklift Dashboards</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <strong>Dashboard Forklift Detail</strong>
+                    <strong>Forklift Dashboards Detail</strong>
                 </li>
             </ol>
     </div>
     <div class="col-lg-2">
-
+        
+        </div>
     </div>
- </div>
-
- <!-- card detail -->
- 
-        <div class="wrapper wrapper-content animated fadeInRight">
-
-            <div class="row">
-                <div class="col-lg-12">
-
-                    <div class="ibox product-detail">
-                        <div class="ibox-content">
-
-                            <div class="row">
-                                <div class="col-md-5">
-
-
-                                    <div class="product-images">
-
-                                        <div>
-                                            <div class="image-imitation">
-                                                [IMAGE 1]
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="image-imitation">
-                                                [IMAGE 2]
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="image-imitation">
-                                                [IMAGE 3]
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                                <div class="col-md-7">
-                                <?php foreach($forklift -> result_array() as $dt): ?>
-                                    <h2 class="font-bold m-b-xs">
+    
+    <!-- card detail -->
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                    <?php foreach($forklift -> result_array() as $dt): ?>
+                    <div class="card mb-3" style="max-width: 1200px; height:400px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                            <img src="<?php echo base_url() ?>/assets/img/forklift/<?php echo $dt['txtGambar_forklift']; ?>" class="img-fluid rounded-start" alt="...">
+                            
+                            </div>
+                            <div class="col-md-8">
+                            <div class="card-body">
+                                 <h2 class="font-bold m-b-xs">
                                         <?= $dt['txtVersioneng']; ?>
-                                    </h2>
-                                    <small><?php echo $dt['txtVersionwh']; ?></small>
+                                </h2>
+                                <small><?php echo $dt['txtVersionwh']; ?></small>
                                     <hr>
-                                    <div>
-                                        <button class="btn btn-primary float-right">Add to cart</button>
-                                        <h1 class="product-main-price">$406,602 <small class="text-muted">Exclude Tax</small> </h1>
-                                    </div>
-                                    <hr>
-                                    <h4>Product description</h4>
-
-                                    <div class="small text-muted">
-                                        It is a long established fact that a reader will be distracted by the readable
-                                        content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                        that it has a more-or-less normal distribution of letters, as opposed to using
-                                        'Content here, content here', making it look like readable English.
-                                        <br/>
-                                        <br/>
-                                        There are many variations of passages of Lorem Ipsum available, but the majority
-                                        have suffered alteration in some form, by injected humour, or randomised words
-                                        which don't look even slightly believable.
-                                    </div>
                                     <dl class="row m-t-md medium">
                                         <dt class="col-md-4 text-right">Area : </dt>
                                         <dd class="col-md-8"><?= $dt['txtArea']; ?></dd>
@@ -104,18 +61,12 @@
                                         <dt class="col-md-4 text-right">Battery :</dt>
                                         <dd class="col-md-8"><?= $dt['intBattery']; ?></dd>
                                     </dl>
-                                    <div class="text-right">
-                                        <div class="btn-group">
-                                            <button class="btn btn-white btn-sm"><i class="fa fa-star"></i> Add to wishlist </button>
-                                            <button class="btn btn-white btn-sm"><i class="fa fa-envelope"></i> Contact with author </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php endforeach; ?>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <?php endforeach; ?>
             </div>
 
             <div class="wrapper wrapper-content animated fadeInRight">

@@ -113,7 +113,7 @@
 <script>
     $(document).ready(function(){
         $('.dataTables-example').DataTable({
-            pageLength: 100,
+            pageLength: 10,
             responsive: true,
             dom: '<"html5buttons"B>lTfgitp',
             buttons: [
@@ -133,7 +133,60 @@
 
         });
 
+    
+        // Form QR Scan CLI Forklift
+        // $('#txtSerialnumber').keyup(function () {
+              
+        //     var txtSerialnumber = $('#txtSerialnumber').val();
+            
+        //     $.ajax({
+        //         url: "<?php echo base_url('forklift/cli_forklift');?>",
+        //         data: 'txtSerialnumber='+txtSerialnumber,
+        //         type : 'post',
+        //         dataType: 'json',
+        //         success: function (data){
+
+        //             console.log(data);
+        //             var json = data,
+        //             obj = JSON.parse(json);
+
+        //             $('#txtArea').val(obj.txtArea);
+        //             $('#txtVersionwh').val(obj.txtVersionwh);
+        //             $('#txtVersioneng').val(obj.txtVersioneng);
+        //             $('#txtSerialnumberScan').val(obj.txtSerialnumber);
+        //             $('#txtPicforklift').val(obj.txtPicforklift);
+        //             $('#intTahunpembuatan').val(obj.intTahunpembuatan);
+        //         }
+        //     });
+        // })
+
+        // Delete CLI Forklift
+        // $('#show_data').on('click', '.item_delete', function() {
+            
+        //     var intForkliftwhID = $(this).attr('data');
+        //     $('#modalDelete').modal('show');
+        //     $('[name="intForkliftwhID"]').val(intForkliftwhID);
+        // })
+
+        // $('#btn_delete').on('click', function(e) {
+        //     e.preventDefault();
+        //     var intForkliftwhID = $('#intForkliftwhID').val();
+        //     $.ajax({
+        //         type: 'post',
+        //         url: '<?php echo base_url('forklift/delete'); ?>',
+        //         dataType: 'json',
+        //         data: {
+        //             'intForkliftwhID': intForkliftwhID
+        //         },
+        //         success: function (data){
+        //             $('#modalDelete').modal('hide');
+        //             show_item();
+        //         }
+        //     })
+        // })
+
     });
+
 
 </script>
 <script>
@@ -219,7 +272,6 @@
         }
 
 </script>
-
 <script>
     $(document).ready(function(){
 
@@ -240,6 +292,61 @@
 
     });
 
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#txtSerialnumber').keyup(function () {
+              
+            var txtSerialnumber = $('#txtSerialnumber').val();
+            
+            $.ajax({
+                url: "<?php echo base_url('forklift/cli_forklift');?>",
+                data: 'txtSerialnumber='+txtSerialnumber,
+                type : 'post',
+                dayaType: 'json',
+                success: function (data){
+
+                    console.log(data);
+                    var json = data,
+                    obj = JSON.parse(json);
+
+                    $('#txtArea').val(obj.txtArea);
+                    $('#txtVersionwh').val(obj.txtVersionwh);
+                    $('#txtVersioneng').val(obj.txtVersioneng);
+                    $('#txtSerialnumberScan').val(obj.txtSerialnumber);
+                    $('#txtPicforklift').val(obj.txtPicforklift);
+                    $('#intTahunpembuatan').val(obj.intTahunpembuatan);
+                }
+            });
+        })
+
+        $('#show_data').on('click', '.item_delete', function() {
+            
+            var intForkliftwhID = $(this).attr('data');
+            $('#modalDelete').modal('show');
+            $('[name="intForkliftwhID"]').val(intForkliftwhID);
+        })
+
+        $('#btn_delete').on('click', function(e) {
+            e.preventDefault();
+            var intForkliftwhID = $('#intForkliftwhID').val();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('forklift/delete'); ?>',
+                dataType: 'json',
+                data: {
+                    'intForkliftwhID': intForkliftwhID
+                },
+                success: function (data){
+                    $('#modalDelete').modal('hide');
+                    $('#show_data').html(data.table);
+                }
+            })
+        })
+    });
+
+    
 </script>
 <script>
         $(document).ready(function() {
