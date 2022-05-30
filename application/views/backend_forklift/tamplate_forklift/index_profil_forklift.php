@@ -95,10 +95,10 @@
             </div>
         </div>
     </div> 
+<script src="<?php echo base_url();?>assets/js/sweetalert.min.js"></script> 
 <script src="<?php echo base_url();?>assets/js/plugins/dataTables/datatables.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
 <script src="<?php echo base_url();?>assets/js/plugins/toastr/toastr.min.js"></script>
-<script src="<?php echo base_url();?>assets/js/sweetalert.min.js"></script> 
 <script src="<?php echo base_url();?>assets/js/plugins/footable/footable.all.min.js"></script>          
 <script>
         $(document).ready(function() {
@@ -109,7 +109,6 @@
         });
 
 </script>       
-
 <script>
     $(document).ready(function(){
         $('.dataTables-example').DataTable({
@@ -293,9 +292,48 @@
     });
 
 </script>
-<script type="text/javascript">
 
+<!-- sweetalert -->
+<!-- <script>
+        
+</script> -->
+
+<script type="text/javascript">
     $(document).ready(function () {
+
+        show_cli();
+        function show_cli()
+        {
+            $.ajax({
+                    url: "<?php echo base_url('forklift/header_cli_forklift')?>",
+                    dataType: 'json',
+                    success: function (data){
+                        var html = '';
+        
+                        for(i=0; i<data.length; i++) {
+                            html+= '<tr>' +                                        
+                                        '<td>'+data[i].txtArea+'</td>'+
+                                        '<td>'+data[i].txtVersionwh+'</td>'+
+                                        '<td>'+data[i].txtVersioneng+'</td>'+
+                                        '<td>'+data[i].txtSerialnumber+'</td>'+
+                                        '<td>'+data[i].txtPicforklift+'</td>'+
+                                        '<td>'+data[i].intTahunpembuatan+'</td>'+
+                                        '<td>'+data[i].txtjeniscleaning+'</td>'+
+                                        '<td>' +
+                                            '<a href="" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Detail</a>' +
+                                        '</td>' +
+                                        '<td>' +
+                                            '<a href="<?= base_url('page/edit_cli_forklift'); ?>" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i> Update</a>' +
+                                            '<button class="btn btn-danger btn-sm item_delete" data="'+ data[i].intCliForkliftID +'"><i class="fa fa-trash"></i> Delete</button>'
+                                        '</td>';
+                                    '</tr>';
+                        }
+
+                        $('#show_data').html(html);
+                    }
+                })
+        }
+
         $('#txtSerialnumber').keyup(function () {
               
             var txtSerialnumber = $('#txtSerialnumber').val();
@@ -307,7 +345,7 @@
                 dayaType: 'json',
                 success: function (data){
 
-                    console.log(data);
+                    // console.log(data);
                     var json = data,
                     obj = JSON.parse(json);
 
@@ -328,6 +366,53 @@
             $('[name="intForkliftwhID"]').val(intForkliftwhID);
         })
 
+        $('#btn_create').on('click', function (e) {
+            e.preventDefault();
+            
+            var txtSerialnumber = $('#txtSerialnumber').val();
+            var txtArea = $('#txtArea').val();
+            var txtVersionwh = $('#txtVersionwh').val();
+            var txtVersioneng = $('#txtVersioneng').val();
+            var txtPicforklift = $('#txtPicforklift').val();
+            var intTahunpembuatan = $('#intTahunpembuatan').val();
+            var txtjeniscleaning = $('[name="txtjeniscleaning"]').val();
+
+            if(txtVersionwh == ''){
+                alert('Serial Number Tidak Boleh Kosong');
+            }else{
+
+            
+            $.ajax({
+
+                type: "POST",
+                url: "<?php echo base_url('forklift/create'); ?>",
+                dataType: "json",
+                data: {txtSerialnumber : txtSerialnumber, txtArea:txtArea, txtVersionwh:txtVersionwh, txtVersioneng:txtVersioneng, txtPicforklift:txtPicforklift, intTahunpembuatan:intTahunpembuatan, txtjeniscleaning:txtjeniscleaning},
+                success: function (data){
+                    swal({
+                        title: "SUCCESS",
+                        text: "CLI FORKLIFT HAS BEEN INSERTED!",
+                        icon: "success",
+                        button: false,
+                        timer: 3000,
+                    })
+                    $('#modalAdd').modal('hide');
+                    show_cli();
+                    
+
+                    $("[name='txtSerialnumber']").val('');
+                    $("[name='txtArea']").val('');
+                    $("[name='txtVersionwh']").val('');
+                    $("[name='txtVersioneng']").val('');
+                    $("[name='txtPicforklift']").val('');
+                    $("[name='intTahunpembuatan']").val('');
+                },
+            });
+        }
+        })
+
+        
+
         $('#btn_delete').on('click', function(e) {
             e.preventDefault();
             var intForkliftwhID = $('#intForkliftwhID').val();
@@ -339,8 +424,16 @@
                     'intForkliftwhID': intForkliftwhID
                 },
                 success: function (data){
+                    swal({
+                    title: "SUCCESS",
+                    text: "FORKLIFT HAS BEEN DELETED!",
+                    icon: "success",
+                    button: false,
+                    timer: 2500,
+                    })
                     $('#modalDelete').modal('hide');
-                    $('#show_data').html(data.table);
+                    show_cli();
+                    
                 }
             })
         })

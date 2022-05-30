@@ -83,6 +83,17 @@ class Page extends MY_Controller
 		}
 	}
 
+	public function edit_cli_forklift()
+	{
+		if ($this->session->userdata('role') == '1') {
+			$this->render_edit_cli_forklift('cli_forklift');
+		} else if ($this->session->userdata('role') == '2') {
+			$this->render_edit_cli_forklift('cli_forklift');
+		} else {
+			show_404();
+		}
+	}
+
 	//////////////////////////////////// WEB MANAGER ///////////////////////////////////
 
 	

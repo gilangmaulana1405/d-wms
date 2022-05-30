@@ -30,25 +30,24 @@
             <div class="ibox">
                 <div class="ibox-content">
 
-                <!-- alert notification -->
-                <?= $this->session->flashdata('message'); ?>
                                 <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover dataTables-example" style="width:100%">
+                                <table id="myTable" class="table table-striped table-bordered table-hover dataTables-example" style="width:100%">
                                     <thead>
                                     <tr>
-                                        <th style="width: 3%;">#</th>
+                                        <!-- <th style="width: 3%;">#</th> -->
                                         <th>AREA</th>
                                         <th>NAME UNIT</th>
                                         <th>ITEM PART</th>
                                         <th>SERIAL NUMBER</th>
                                         <th>PIC FORKLIFT</th>
                                         <th>TAHUN PEMBUATAN</th>
+                                        <th>JENIS CLEANING</th>
                                         <th>DETAIL</th>
                                         <th>ACTION</th>
                                     </tr>
                                     </thead>
                                     <tbody style="width:100%" id="show_data">
-                                    <?php 
+                                    <!-- <?php 
                                     $no = 1;
                                     foreach($forklift -> result_array() as $dt) :
                                     ?>
@@ -60,15 +59,16 @@
                                             <td><?= $dt['txtSerialnumber']; ?></td>
                                             <td><?= $dt['txtPicforklift']; ?></td>
                                             <td><?= $dt['intTahunpembuatan']; ?></td>
+                                            <td><?= $dt['txtjeniscleaning']; ?></td>
                                             <td>
                                                 <a href="" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Detail</a>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i> Update</a>
-                                                <button class="btn btn-danger btn-sm item_delete" data="<?= $dt['intForkliftwhID']; ?>"><i class="fa fa-trash"></i> Delete</button>
+                                                <a href="<?= base_url('page/edit_cli_forklift'); ?>" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i> Update</a>
+                                                <button class="btn btn-danger btn-sm item_delete" data="<?= $dt['intCliForkliftID']; ?>"><i class="fa fa-trash"></i> Delete</button>
                                             </td>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php endforeach; ?> -->
                                     </tbody>
                                     </table>
                                 </div>
@@ -92,11 +92,11 @@
       <div class="modal-body">
         <div class="form-group">
             <label for="QR Code">QR Code</label>
-            <input type="numeric" class="form-control"  id="txtSerialnumber" name="txtserialnumber">
+            <input type="numeric" class="form-control"  id="txtSerialnumber" name="txtSerialnumber">
         </div>
         <div class="form-group">
             <label for="Area">AREA</label>
-            <input type="text" class="form-control" id="txtArea" name="txtarea" readonly>
+            <input type="text" class="form-control" id="txtArea" name="txtArea" readonly>
         </div>
         <div class="form-group">
             <label for="Name Unit">Version WH</label>
@@ -107,20 +107,16 @@
             <input type="text" class="form-control" id="txtVersioneng" name="txtVersioneng" readonly>
         </div>
         <div class="form-group">
-            <label for="Serial Number">SERIAL NUMBER</label>
-            <input type="numeric" class="form-control" id="txtSerialnumberScan" name="txtSerialnumber" readonly>
-        </div>
-        <div class="form-group">
             <label for="PIC Forklift">PIC FORKLIFT</label>
             <input type="text" class="form-control" id="txtPicforklift" name="txtPicforklift" readonly>
         </div>
         <div class="form-group">
-            <label for="keterangan">TAHUN</label>
-            <input type="text" class="form-control" id="intTahunpembuatan" name="intTahunpembuatan" readonly>
+            <label for="Tahun pembuatan">Tahun Pembuatan</label>
+            <input type="numeric" class="form-control" id="intTahunpembuatan" name="intTahunpembuatan" readonly>
         </div>
         <div class="form-group">
             <label for="Jenis Task">JENIS TASK</label>
-            <select class="form-control" id="txtjenistask" name="txtjenistask">
+            <select class="form-control" id="txtjeniscleaning" name="txtjeniscleaning">
                 <option value="1">Cleaning Unit</option>
                 <option value="2">Cleaning Battery</option>
             </select>
@@ -128,7 +124,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" id="btn_create">Create Data</button>
       </div>
     </div>
   </div>
@@ -136,26 +132,26 @@
 
 <!-- Modal Delete -->
 <form>
-<div class="modal fade" id="modalDelete" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" name="intForkliftwhID" id="intForkliftwhID" class="form-control" >
-       <h4>Are you sure want to delete this data?</h4>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" id="btn_delete" >Delete</button>
-      </div>
+    <div class="modal fade" id="modalDelete" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="intForkliftwhID" id="intForkliftwhID" class="form-control" >
+        <h4>Are you sure want to delete this data?</h4>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" id="btn_delete" >Delete</button>
+        </div>
+        </div>
     </div>
-  </div>
-</div>
+    </div>
 </form>
 
 <!-------------------------------------Versi Lama-------------------------------------------------------------->

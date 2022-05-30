@@ -111,6 +111,7 @@ class MY_Controller extends CI_Controller
     public function render_dashboard_forklift_detail($intForkliftwhID)
     {
         $data['forklift'] = $this->Roleacces_model->get_forklift($intForkliftwhID);
+        $data['transaksi_forklift'] = $this->Forklift_model->get_transaksi_forklift();
         $data['left_sidebar'] = $this->load->view('backend_forklift/tamplate_forklift/left_sidebar_forklift', $data, TRUE);
         $data['contentnya'] = $this->load->view('backend_forklift/content_forklift/dashboard_forklift/dashboard_forklift_detail', $data, TRUE);
         $this->load->view('backend_forklift/tamplate_forklift/index_profil_forklift', $data);
@@ -119,7 +120,7 @@ class MY_Controller extends CI_Controller
     // CLI FORKLIFT
     public function render_cli_forklift($content, $data = NULL)
     {
-        $data['forklift'] = $this->Forklift_model->get_cli_forklift();
+        $data['forklift'] = $this->Forklift_model->get_header_cli_forklift();
         $data['left_sidebar'] = $this->load->view('backend_forklift/tamplate_forklift/left_sidebar_forklift', $data, TRUE);
         $data['contentnya'] = $this->load->view('backend_forklift/content_forklift/master_forklift/cli_forklift', $data, TRUE);
         $this->load->view('backend_forklift/tamplate_forklift/index_profil_forklift', $data);
@@ -131,6 +132,14 @@ class MY_Controller extends CI_Controller
         // $data['forkliftOK'] = $this->Forklift_model->forkliftOK();
         // $data['forkliftRepair'] = $this->Forklift_model->forkliftRepair();
         // $data['forkliftBreakdown'] = $this->Forklift_model->forkliftBreakdown();
+    }
+
+    public function render_edit_cli_forklift($content, $data = NULL)
+    {
+        $data['forklift'] = $this->Forklift_model->get_cli_forklift();
+        $data['left_sidebar'] = $this->load->view('backend_forklift/tamplate_forklift/left_sidebar_forklift', $data, TRUE);
+        $data['contentnya'] = $this->load->view('backend_forklift/content_forklift/master_forklift/edit_cli_forklift', $data, TRUE);
+        $this->load->view('backend_forklift/tamplate_forklift/index_profil_forklift', $data);
     }
 
 }

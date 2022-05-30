@@ -17,14 +17,25 @@ class Forklift extends MY_Controller
 		echo json_encode($data);
 	}
 
+	public function header_cli_forklift()
+	{
+		$data = $this->Forklift_model->get_header_cli_forklift('trdwms_headercli')->result();
+		echo json_encode($data);
+	}
+
+	public function create()
+	{ 
+		$data = $this->Forklift_model->create_cli_forklift();
+
+		echo json_encode($data);
+	}
+
 
 	// buat function delete tanpa hapus data
 	public function delete()
 	{
 		$intForkliftwhID = $this->input->post('intForkliftwhID');
 		$data = $this->Forklift_model->delete_cli_forklift('trdwms_headercli', $intForkliftwhID);
-		
-		$this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success!</strong> Data has been deleted. <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 		
 		echo json_encode($data);
 	}
