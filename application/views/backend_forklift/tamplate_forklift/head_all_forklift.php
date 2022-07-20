@@ -1,5 +1,6 @@
 <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
 <link href="<?php echo base_url();?>assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+<link href="<?php echo base_url();?>https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 <!-- Morris -->
 <link href="<?php echo base_url();?>assets/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">

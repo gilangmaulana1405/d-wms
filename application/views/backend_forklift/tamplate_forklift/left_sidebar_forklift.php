@@ -29,6 +29,7 @@
                 <ul class="nav nav-second-level collapse">
                    <li><a href="<?php echo base_url('page/cli_forklift');?>">CLI Forklift</a></li> 
                    <li><a href="<?php echo base_url('page/cli_battery');?>">CLI Battery</a></li> 
+                   <li><a href="<?php echo base_url('page/approve_cli_forklift');?>">Approve CLI</a></li> 
                    
                 </ul>
             </li>

@@ -293,15 +293,205 @@
 
 </script>
 
-<!-- sweetalert -->
-<!-- <script>
-        
-</script> -->
+<script>
+    show_approve_cliForklift()
 
+    function show_approve_cliForklift()
+    {
+            $.ajax({
+                    url: "<?php echo base_url('forklift/approve_cli_forklift')?>",
+                    dataType: 'json',
+                    success: function (data){
+                        var html = '';
+        
+                        for(i=0; i<data.length; i++) {
+                            var angka = i+1;
+                            html+= '<tr>' +                                        
+                                        '<td>'+angka+'</td>'+
+                                        '<td>'+data[i].txtActivityCode_header+'</td>'+
+                                        '<td>'+data[i].txtJenisForklift_header+'</td>'+
+                                        // '<td>'+data[i].txtArea+'</td>'+
+                                        // '<td>'+data[i].txtSerialnumber+'</td>'+
+                                        // '<td>'+data[i].txtPicforklift+'</td>'+
+                                        // '<td>'+data[i].txtVersioneng+'</td>'+
+                                        '<td>'+data[i].txtjeniscleaning+'</td>'+
+                                        '<td>' +
+                                            '<button class="btn btn-success btn-sm item_approve" data-id="'+ data[i].intCliForkliftID+'"><i class="fa fa-check"></i>Approve</button>'+
+                                            '<button class="btn btn-danger btn-sm item_reject mt-2" data-id="'+ data[i].intCliForkliftID+'"><i class="fa fa-times"></i> Reject</button>'+
+                                        '</td>';
+                                    '</tr>';
+                        }
+
+                        $('#show_data_approve_cliForklift').html(html);
+                    }
+                })
+    }
+
+    // get id approve
+    $('#show_data_approve_cliForklift').on('click', '.item_approve', function(){
+        var intCliForkliftID = $(this).attr('data-id');
+        $('#modalApprove').modal('show');
+        $('#intCliForkliftID').val(intCliForkliftID);
+    })
+
+    // action approve
+    $('#btn_approve').on('click', function(){
+        var intCliForkliftID = $('#intCliForkliftID').val();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('forklift/action_approve_cli_forklift'); ?>',
+                dataType: 'json',
+                data: {
+                    'intCliForkliftID': intCliForkliftID
+                },
+                success: function (data){
+                    swal({
+                    title: "SUCCESS",
+                    text: "FORKLIFT HAS BEEN APPROVED!",
+                    icon: "success",
+                    button: false,
+                    timer: 2500,
+                    })
+                    $('#modalApprove').modal('hide');
+                    show_approve_cliForklift();
+                }
+            })
+    })
+
+    // get id reject
+    $('#show_data_approve_cliForklift').on('click', '.item_reject', function(){
+        var intCliForkliftID = $(this).attr('data-id');
+        $('#modalReject').modal('show');
+        $('#intCliForkliftID').val(intCliForkliftID);
+    })
+
+    // action reject
+    $('#btn_reject').on('click', function() {
+        var intCliForkliftID = $('#intCliForkliftID').val();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('forklift/action_reject_cli_forklift'); ?>',
+                dataType: 'json',
+                data: {
+                    'intCliForkliftID': intCliForkliftID
+                },
+                success: function (data){
+                    swal({
+                    title: "SUCCESS",
+                    text: "FORKLIFT HAS BEEN REJECTED!",
+                    icon: "success",
+                    button: false,
+                    timer: 2500,
+                    })
+                    $('#modalReject').modal('hide');
+                    show_approve_cliForklift();
+                }
+            })
+    })
+</script>
+
+<script>
+    show_data_approve_cliBattery();
+
+    function show_data_approve_cliBattery()
+    {
+        $.ajax({
+                    url: "<?php echo base_url('forklift/approve_cli_battery')?>",
+                    dataType: 'json',
+                    success: function (data){
+                        var html = '';
+        
+                        for(i=0; i<data.length; i++) {
+                            var angka = i+1;
+                            html+= '<tr>' +                                        
+                                        '<td>'+angka+'</td>'+
+                                        '<td>'+data[i].txtActivityCode_header+'</td>'+
+                                        '<td>'+data[i].txtJenisForklift_header+'</td>'+
+                                        // '<td>'+data[i].txtArea+'</td>'+
+                                        // '<td>'+data[i].txtSerialnumber+'</td>'+
+                                        // '<td>'+data[i].txtPicforklift+'</td>'+
+                                        // '<td>'+data[i].txtVersioneng+'</td>'+
+                                        '<td>'+data[i].txtjeniscleaning+'</td>'+
+                                        '<td>' +
+                                            '<button class="btn btn-success btn-sm item_approve" data-id="'+ data[i].intCliForkliftID+'"><i class="fa fa-check"></i>Approve</button>'+
+                                            '<button class="btn btn-danger btn-sm item_reject mt-2" data-id="'+ data[i].intCliForkliftID+'"><i class="fa fa-times"></i> Reject</button>'+
+                                        '</td>';
+                                    '</tr>';
+                        }
+
+                        $('#show_data_approve_cliBattery').html(html);
+                    }
+        })
+    }
+
+    // approve
+    $('#show_data_approve_cliBattery').on('click', '.item_approve', function(){
+        var intCliForkliftID = $(this).attr('data-id');
+        $('#modalApprove').modal('show');
+        $('#intCliForkliftID').val(intCliForkliftID);
+    })
+
+    $('#btn_approve').on('click', function(){
+        var intCliForkliftID = $('#intCliForkliftID').val();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('forklift/action_approve_cli_forklift'); ?>',
+                dataType: 'json',
+                data: {
+                    'intCliForkliftID': intCliForkliftID
+                },
+                success: function (data){
+                    swal({
+                    title: "SUCCESS",
+                    text: "FORKLIFT HAS BEEN APPROVED!",
+                    icon: "success",
+                    button: false,
+                    timer: 2500,
+                    })
+                    $('#modalApprove').modal('hide');
+                    show_data_approve_cliBattery();
+                }
+            })
+    })
+
+    // reject
+    $('#show_data_approve_cliBattery').on('click', '.item_reject', function(){
+        var intCliForkliftID = $(this).attr('data-id');
+        $('#modalReject').modal('show');
+        $('#intCliForkliftID').val(intCliForkliftID);
+    })
+
+    $('#btn_reject').on('click', function() {
+        var intCliForkliftID = $('#intCliForkliftID').val();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url('forklift/action_reject_cli_forklift'); ?>',
+                dataType: 'json',
+                data: {
+                    'intCliForkliftID': intCliForkliftID
+                },
+                success: function (data){
+                    swal({
+                    title: "SUCCESS",
+                    text: "FORKLIFT HAS BEEN REJECTED!",
+                    icon: "success",
+                    button: false,
+                    timer: 2500,
+                    })
+                    $('#modalReject').modal('hide');
+                    show_data_approve_cliBattery();
+                }
+            })
+    })
+</script>
+
+<!-- CLI FORKLIFT -->
 <script type="text/javascript">
     $(document).ready(function () {
 
+        // tampil data tabel cli forklift
         show_cli();
+        
         function show_cli()
         {
             $.ajax({
@@ -311,9 +501,11 @@
                         var html = '';
         
                         for(i=0; i<data.length; i++) {
+                            var angka = i+1;
                             html+= '<tr>' +                                        
+                                        '<td>'+angka+'</td>'+
                                         '<td>'+data[i].txtArea+'</td>'+
-                                        '<td>'+data[i].txtVersionwh+'</td>'+
+                                        '<td>'+data[i].txtJenisForklift_header+'</td>'+
                                         '<td>'+data[i].txtVersioneng+'</td>'+
                                         '<td>'+data[i].txtSerialnumber+'</td>'+
                                         '<td>'+data[i].txtPicforklift+'</td>'+
@@ -323,17 +515,20 @@
                                             '<a href="" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Detail</a>' +
                                         '</td>' +
                                         '<td>' +
-                                            '<a href="<?= base_url('page/edit_cli_forklift'); ?>" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i> Update</a>' +
-                                            '<button class="btn btn-danger btn-sm item_delete" data="'+ data[i].intCliForkliftID +'"><i class="fa fa-trash"></i> Delete</button>'
+                                            '<button class="btn btn-primary btn-sm btn_startChecklist" data-serial="'+ data[i].txtSerialnumber +'" data-jenis="'+data[i].txtJenisForklift_header+'" data-activity="'+ data[i].txtActivityCode_header+'"><i class="fa fa-edit"></i> Start Checklist</button>'+
+
+                                            '<button class="btn btn-danger btn-sm item_delete mt-2" data="'+ data[i].intCliForkliftID +'"><i class="fa fa-trash"></i> Delete</button>'
                                         '</td>';
                                     '</tr>';
                         }
 
                         $('#show_data').html(html);
+                        
                     }
                 })
         }
-
+  
+        // inputan terisi otomatis ketika scan serial number (create cli forklift)
         $('#txtSerialnumber').keyup(function () {
               
             var txtSerialnumber = $('#txtSerialnumber').val();
@@ -359,14 +554,8 @@
             });
         })
 
-        $('#show_data').on('click', '.item_delete', function() {
-            
-            var intForkliftwhID = $(this).attr('data');
-            $('#modalDelete').modal('show');
-            $('[name="intForkliftwhID"]').val(intForkliftwhID);
-        })
-
-        $('#btn_create').on('click', function (e) {
+        // tambah data cli forklift
+        $('#btn_create_forklift').on('click', function (e) {
             e.preventDefault();
             
             var txtSerialnumber = $('#txtSerialnumber').val();
@@ -378,41 +567,169 @@
             var txtjeniscleaning = $('[name="txtjeniscleaning"]').val();
 
             if(txtVersionwh == ''){
-                alert('Serial Number Tidak Boleh Kosong');
+                 swal("UNDIFINED SERIAL NUMBER!","DATA TIDAK BOLEH KOSONG !!!","warning");
             }else{
 
-            
-            $.ajax({
-
-                type: "POST",
-                url: "<?php echo base_url('forklift/create'); ?>",
-                dataType: "json",
-                data: {txtSerialnumber : txtSerialnumber, txtArea:txtArea, txtVersionwh:txtVersionwh, txtVersioneng:txtVersioneng, txtPicforklift:txtPicforklift, intTahunpembuatan:intTahunpembuatan, txtjeniscleaning:txtjeniscleaning},
-                success: function (data){
-                    swal({
-                        title: "SUCCESS",
-                        text: "CLI FORKLIFT HAS BEEN INSERTED!",
-                        icon: "success",
-                        button: false,
-                        timer: 3000,
-                    })
-                    $('#modalAdd').modal('hide');
-                    show_cli();
-                    
-
-                    $("[name='txtSerialnumber']").val('');
-                    $("[name='txtArea']").val('');
-                    $("[name='txtVersionwh']").val('');
-                    $("[name='txtVersioneng']").val('');
-                    $("[name='txtPicforklift']").val('');
-                    $("[name='intTahunpembuatan']").val('');
-                },
-            });
-        }
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url('forklift/create'); ?>",
+                    dataType: "json",
+                    data: {txtSerialnumber : txtSerialnumber, txtArea:txtArea, txtVersionwh:txtVersionwh, txtVersioneng:txtVersioneng, txtPicforklift:txtPicforklift, intTahunpembuatan:intTahunpembuatan, txtjeniscleaning:txtjeniscleaning},
+                    success: function (data){
+                        swal({
+                            title: "SUCCESS",
+                            text: "CLI FORKLIFT HAS BEEN INSERTED!",
+                            icon: "success",
+                            button: false,
+                            timer: 3000,
+                        })
+                        $('#modalAdd').modal('hide');
+                        show_cli();
+                        
+                        // hilangkan inputan
+                        $("[name='txtSerialnumber']").val('');
+                        $("[name='txtArea']").val('');
+                        $("[name='txtJenisForklift_header']").val('');
+                        $("[name='txtVersioneng']").val('');
+                        $("[name='txtPicforklift']").val('');
+                        $("[name='intTahunpembuatan']").val('');
+                    },
+                });
+            }
         })
 
-        
+        // get data item cli modal (tombol start checklist)
+        $('#show_data').on('click', '.btn_startChecklist', function(){
+            var txtSerialnumber = $(this).attr('data-serial');
+            var txtJenisForklift_header = $(this).attr('data-jenis');
+            var txtActivityCode_header = $(this).attr('data-activity');
+            $.ajax({
+                url: '<?php echo base_url('forklift/start_Checklist'); ?>',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {txtSerialnumber : txtSerialnumber, txtJenisForklift_header:txtJenisForklift_header},
+                success: function (data){
+                    console.log(data)
+                    var html = '';
+                    var lanjutan = '';
+                    var i;
+                    
+                    $('#modalStartChecklist').modal('show');
+                    html+='<table border="1" width=100%>';
+                    html+='<tr>';
+                    html+='<th rowspan=4 style="width:120px;"><img src="<?= base_url('assets/img/kalbe.png'); ?>" style="width:150px; height:100px; padding:2px"></th>';
+                    html+='<th rowspan=2 style="width:500px;"><center> FORM </center></th>';
+                    html+='<th style="width:10px" align="left">No.Dok :</th>';
+                    html+='<th style="width:50px" align="left">FR/HRD-GA/BBP/006</th>';
+                    html+='</tr>';
+                    html+='<tr>';
+                    html+='<th align="left">No.Rev : </th>';
+                    html+='<th align="left">00</th>';
+                    html+='</tr>';
+                    html+='<tr>';
+                    html+='<th style="padding-right: 5px; padding-left: 5px;" rowspan=2><center>CLEANING/LUBRIKASI/INSPECTION (CLI)</center></th>';
+                    html+='<th align="left">Tgl Berlaku :</th>';
+                    html+='<th align="left">22 Juni 2022</th>';
+                    html+='<tr>';
+                    html+='<th align="left">Halaman :</th>';
+                    html+='<th align="left">1 dari 1</th>';
+                    html+='</tr>';
+                    html+='</table>';
 
+                    html+='<table border="1" width=100%>';
+                    html+='<tbody>';
+                    html+='<tr>';
+                    html+='<th>NO</th>';
+                    html+='<th>UNIT</th>';
+                    html+='<th>ITEM PART</th>';
+                    html+='<th>STANDARD</th>';
+                    html+='<th>TIME (MIN)</th>';
+                    html+='<th>TOOLS</th>';
+                    html+='<th>BIT CLEANING</th>';
+                    html+='<th>BIT INSPECTION</th>';
+                    html+='<th>BIT LUBRICATION</th>';
+                    html+='<th>BARCODE ITEM</th>';
+                    // html+='<th colspan="2" align="center">TANGGAL</>';
+                    // html+='<th>KETERANGAN</th>';
+                    html+='</tr>';
+                    for (var i = 0; i < data.length; i++) {
+                        var angka = i+1;
+                        html+='<tr>';
+                        html+='<td style="font-size:11px;">'+angka+'</td>'  
+                        html+='<td style="font-size:11px;">'+data[i].txtUnit+'</td>'
+                        html+='<td style="font-size:11px;">'+data[i].txtItempart+'</td>'
+                        html+='<td style="font-size:11px;">'+data[i].txtStandard+'</td>'
+                        html+='<td style="font-size:11px;">'+data[i].intTimemin+'</td>'
+                        html+='<td style="font-size:11px;">'+data[i].txtTools+'</td>'
+                        html+='<td style="font-size:11px;">'+data[i].bitCleaning+'</td>'
+                        html+='<td style="font-size:11px;">'+data[i].bitInspection+'</td>'
+                        html+='<td style="font-size:11px;">'+data[i].bitLubrication+'</td>'
+                        html+='<td style="font-size:11px;">'+data[i].txtBarcodeitem+'</td>'
+                        html+='</tr>';
+                     }
+                    html+='</tbody>';
+                    html+='</table>';
+
+                    html+='<br>';
+                    html+='<br>';
+
+                    html+='<div class="modal-footer">';
+                    html+='<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
+                    html+='<button type="button" class="btn btn-primary" onclick=approve("'+txtActivityCode_header+'"); >Approved</button>';
+                    html+='</div>';
+                
+                $('#startChecklist-body').html(html);
+
+                }
+            })
+        });
+
+        // update data detail item form cli (tombol scan) 0 to be 1
+        $('#btn_create_itemcli').on('click', function() {
+            
+            var txtActivityCode_header = $('#txtActivityCode_header').val();
+            var txtBarcodeitem_detail = $('#txtBarcodeitem_detail').val();
+
+            if(txtBarcodeitem_detail == ''){
+                swal("ERROR BARCODE ITEM!","DATA IS NULL !!!","warning");
+            }else{
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo base_url('forklift/ScanItem'); ?>',
+                    data: {txtBarcodeitem_detail:txtBarcodeitem_detail, txtActivityCode_header:txtActivityCode_header},
+                    // dataType: "JSON",
+                    success: function (data){
+                        console.log(data);
+                        if(data == 'true'){  
+                            swal("SUCCESS!","ITEM CLI FORKLIFT HAS BEEN SCAN!","success");   
+                        }else if(data == 'false'){
+                            swal("PROCESS SCAN FAILED!","warning");
+                        }else if(data == 'undifined'){
+                            swal("ERROR BARCODE ITEM!","BARCODE UNDIFINED !!!","warning");
+                        }else if(data == 'has scanned'){
+                            swal("ERROR BARCODE ITEM!","BARCODE HAS SCANNED !!!","warning");
+                        }
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo base_url('forklift/DetailCli'); ?>',
+                    success: function (data){
+                        console.log(data);
+                    }
+                });
+            }
+        });
+
+        // ambil id ketika akan hapus data cli forklift
+        $('#show_data').on('click', '.item_delete', function() {
+            var intForkliftwhID = $(this).attr('data');
+            $('#modalDelete').modal('show');
+            $('[name="intForkliftwhID"]').val(intForkliftwhID);
+        })
+        
+        // hapus data cli forklift
         $('#btn_delete').on('click', function(e) {
             e.preventDefault();
             var intForkliftwhID = $('#intForkliftwhID').val();
@@ -424,23 +741,324 @@
                     'intForkliftwhID': intForkliftwhID
                 },
                 success: function (data){
-                    swal({
-                    title: "SUCCESS",
-                    text: "FORKLIFT HAS BEEN DELETED!",
-                    icon: "success",
-                    button: false,
-                    timer: 2500,
-                    })
+                    swal("SUCCESS!","CLI FORKLIFT HAS BEEN DELETED!","success");
                     $('#modalDelete').modal('hide');
                     show_cli();
-                    
                 }
             })
         })
-    });
 
-    
+        // finish cli forklift
+        $('#finish_cli_forklift').on('click', function(){
+            var intCliForkliftID = $(this).attr('data-finish');
+            $('#modalFinished').modal('show');
+            $('#intCliForkliftID').val(intCliForkliftID);
+        })
+
+        $('#btn_finish_cli_forklift').on('click', function(){
+            var intCliForkliftID = $('#intCliForkliftID').val();
+            
+            $.ajax({
+                url: '<?php echo base_url('forklift/finishCliForklift'); ?>',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    'intCliForkliftID': intCliForkliftID
+                },
+                success: function (data){   
+
+                    if(data == ''){
+
+                    }
+
+                    swal("SUCCESS!","CLEANING FORKLIFT HAS BEEN FINISHED!","success");
+                    $('#modalFinished').modal('hide');
+                    window.location.href="<?php echo site_url('page/cli_forklift'); ?>";
+                }
+            })
+        })
+        
+        
+    });
 </script>
+
+<script>
+    function ScanItem()
+    {
+        var txtActivityCode_header = $('#txtActivityCode_header').val();
+            var txtBarcodeitem_detail = $('#txtBarcodeitem_detail').val();
+
+            if(txtBarcodeitem_detail == ''){
+                swal("ERROR BARCODE ITEM!","DATA IS NULL !!!","warning");
+            }else{
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo base_url('forklift/ScanItem'); ?>',
+                    data: {txtBarcodeitem_detail:txtBarcodeitem_detail, txtActivityCode_header:txtActivityCode_header},
+                    // dataType: "JSON",
+                    success: function (data){
+                        console.log(data);
+                        if(data == 'true'){  
+                            swal("SUCCESS!","ITEM CLI FORKLIFT HAS BEEN SCAN!","success");   
+                        }else if(data == 'false'){
+                            swal("ERROR BARCODE ITEM!","PROCCESS SCAN FAILED !!!","error");
+                        }else if(data == 'undifined'){
+                            swal("ERROR BARCODE ITEM!","BARCODE UNDIFINED !!!","warning");
+                        }else if(data == 'has scanned'){
+                            swal("ERROR BARCODE ITEM!","BARCODE HAS SCANNED !!!","info");
+                        }
+
+                        $('#txtBarcodeitem_detail').val('');
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: '<?php echo base_url('forklift/DetailCli'); ?>',
+                    success: function (data){
+                        console.log(data);
+                    }
+                });
+            }
+    }
+</script>
+
+<script>
+    function scanManual(intDetailcliID, txtActivityCode_header, txtBarcodeitem_detail){
+        var txtActivityCode_header = $('#txtActivityCode_header').val();
+        var txtBarcodeitem_detail = $('#txtBarcodeitem_detail').val();
+        
+        if(txtBarcodeitem_detail == ''){
+            alert('kosong')
+        }else{
+            $.ajax({
+                url: "<?php echo base_url('forklift/ScanItemManual'); ?>",
+                type:"post",
+                data: {intDetailcliID:intDetailcliID, txtBarcodeitem_detail:txtBarcodeitem_detail},
+                success: function(data){
+                    console.log(data);
+                }
+            })
+        }
+    }
+</script>
+
+<!-- CLI BATTERY -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        show_cli_battery();
+
+            function show_cli_battery()
+            {
+                $.ajax({
+                        url: "<?php echo base_url('forklift/header_cli_battery')?>",
+                        dataType: 'json',
+                        success: function (data){
+                            var html = '';
+            
+                            for(i=0; i<data.length; i++) {
+                                var angka = i+1;
+                                html+= '<tr>' +                                        
+                                            '<td>'+angka+'</td>'+
+                                            '<td>'+data[i].txtArea+'</td>'+
+                                            '<td>'+data[i].txtJenisForklift_header+'</td>'+
+                                            '<td>'+data[i].txtVersioneng+'</td>'+
+                                            '<td>'+data[i].txtSerialnumber+'</td>'+
+                                            '<td>'+data[i].txtPicforklift+'</td>'+
+                                            '<td>'+data[i].intTahunpembuatan+'</td>'+
+                                            '<td>'+data[i].txtjeniscleaning+'</td>'+
+                                            '<td>' +
+                                                '<a href="" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Detail</a>' +
+                                            '</td>' +
+                                            '<td>' +
+                                                '<button class="btn btn-primary btn-sm btn_startChecklist" data-serial="'+ data[i].txtSerialnumber +'" data-jenis="'+data[i].txtJenisForklift_header+'" data-activity="'+ data[i].txtActivityCode_header+'"><i class="fa fa-edit"></i> Start Checklist</button>'+
+
+                                                '<button class="btn btn-danger btn-sm item_delete mt-2" data="'+ data[i].intCliForkliftID +'"><i class="fa fa-trash"></i> Delete</button>'
+                                            '</td>';
+                                        '</tr>';
+                            }
+
+                            $('#show_data_cli_battery').html(html);
+                            
+                        }
+                    })
+            }
+
+            $('#btn_create_battery').on('click', function (e) {
+                e.preventDefault();
+                
+                var txtSerialnumber = $('#txtSerialnumber').val();
+                var txtArea = $('#txtArea').val();
+                var txtVersionwh = $('#txtVersionwh').val();
+                var txtVersioneng = $('#txtVersioneng').val();
+                var txtPicforklift = $('#txtPicforklift').val();
+                var intTahunpembuatan = $('#intTahunpembuatan').val();
+                var txtjeniscleaning = $('[name="txtjeniscleaning"]').val();
+
+                if(txtVersionwh == ''){
+                    swal("UNDIFINED SERIAL NUMBER!","DATA TIDAK BOLEH KOSONG !!!","warning");
+                }else{
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url('forklift/createCliBattery'); ?>",
+                        dataType: "json",
+                        data: {txtSerialnumber : txtSerialnumber, txtArea:txtArea, txtVersionwh:txtVersionwh, txtVersioneng:txtVersioneng, txtPicforklift:txtPicforklift, intTahunpembuatan:intTahunpembuatan, txtjeniscleaning:txtjeniscleaning},
+                        success: function (data){
+                            swal({
+                                title: "SUCCESS",
+                                text: "CLI FORKLIFT HAS BEEN INSERTED!",
+                                icon: "success",
+                                button: false,
+                                timer: 3000,
+                            })
+                            $('#modalAdd').modal('hide');
+                            show_cli_battery();
+                            
+                            // hilangkan inputan
+                            $("[name='txtSerialnumber']").val('');
+                            $("[name='txtArea']").val('');
+                            $("[name='txtJenisForklift_header']").val('');
+                            $("[name='txtVersioneng']").val('');
+                            $("[name='txtPicforklift']").val('');
+                            $("[name='intTahunpembuatan']").val('');
+                        },
+                    });
+                }
+            })
+
+            $('#show_data_cli_battery').on('click', '.btn_startChecklist', function(){
+                var txtSerialnumber = $(this).attr('data-serial');
+                var txtJenisForklift_header = $(this).attr('data-jenis');
+                var txtActivityCode_header = $(this).attr('data-activity');
+                $.ajax({
+                    url: '<?php echo base_url('forklift/start_Checklist'); ?>',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {txtSerialnumber : txtSerialnumber, txtJenisForklift_header:txtJenisForklift_header},
+                    success: function (data){
+                        console.log(data)
+                        var html = '';
+                        var lanjutan = '';
+                        var i;
+                        
+                        $('#modalStartChecklist').modal('show');
+                        html+='<table border="1" width=100%>';
+                        html+='<tr>';
+                        html+='<th rowspan=4 style="width:120px;"><img src="<?= base_url('assets/img/kalbe.png'); ?>" style="width:150px; height:100px; padding:2px"></th>';
+                        html+='<th rowspan=2 style="width:500px;"><center> FORM </center></th>';
+                        html+='<th style="width:10px" align="left">No.Dok :</th>';
+                        html+='<th style="width:50px" align="left">FR/HRD-GA/BBP/006</th>';
+                        html+='</tr>';
+                        html+='<tr>';
+                        html+='<th align="left">No.Rev : </th>';
+                        html+='<th align="left">00</th>';
+                        html+='</tr>';
+                        html+='<tr>';
+                        html+='<th style="padding-right: 5px; padding-left: 5px;" rowspan=2><center>CLEANING/LUBRIKASI/INSPECTION (CLI)</center></th>';
+                        html+='<th align="left">Tgl Berlaku :</th>';
+                        html+='<th align="left">22 Juni 2022</th>';
+                        html+='<tr>';
+                        html+='<th align="left">Halaman :</th>';
+                        html+='<th align="left">1 dari 1</th>';
+                        html+='</tr>';
+                        html+='</table>';
+
+                        html+='<table border="1" width=100%>';
+                        html+='<tbody>';
+                        html+='<tr>';
+                        html+='<th>NO</th>';
+                        html+='<th>UNIT</th>';
+                        html+='<th>ITEM PART</th>';
+                        html+='<th>STANDARD</th>';
+                        html+='<th>TIME (MIN)</th>';
+                        html+='<th>TOOLS</th>';
+                        // html+='<th colspan="2" align="center">TANGGAL</>';
+                        // html+='<th>KETERANGAN</th>';
+                        html+='</tr>';
+                        for (var i = 0; i < data.length; i++) {
+                            var angka = i+1;
+                            html+='<tr>';
+                            html+='<td style="font-size:11px;">'+angka+'</td>'  
+                            html+='<td style="font-size:11px;">'+data[i].txtUnit+'</td>'
+                            html+='<td style="font-size:11px;">'+data[i].txtItempart+'</td>'
+                            html+='<td style="font-size:11px;">'+data[i].txtStandard+'</td>'
+                            html+='<td style="font-size:11px;">'+data[i].intTimemin+'</td>'
+                            html+='<td style="font-size:11px;">'+data[i].txtTools+'</td>'
+                            html+='</tr>';
+                        }
+                        html+='</tbody>';
+                        html+='</table>';
+
+                        html+='<br>';
+                        html+='<br>';
+
+                        html+='<div class="modal-footer">';
+                        html+='<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>';
+                        html+='<button type="button" class="btn btn-primary" onclick=approve("'+txtActivityCode_header+'"); >Approved</button>';
+                        html+='</div>';
+                    
+                    $('#startChecklist-body').html(html);
+
+                    }
+                })
+            });
+
+            $('#show_data_cli_battery').on('click', '.item_delete', function() {
+                var intForkliftwhID = $(this).attr('data');
+                $('#modalDelete').modal('show');
+                $('[name="intForkliftwhID"]').val(intForkliftwhID);
+            })
+
+            $('#btn_delete').on('click', function(e) {
+                e.preventDefault();
+                var intForkliftwhID = $('#intForkliftwhID').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo base_url('forklift/delete'); ?>',
+                    dataType: 'json',
+                    data: {
+                        'intForkliftwhID': intForkliftwhID
+                    },
+                    success: function (data){
+                        swal({
+                        title: "SUCCESS",
+                        text: "FORKLIFT HAS BEEN DELETED!",
+                        icon: "success",
+                        button: false,
+                        timer: 2500,
+                        })
+                        $('#modalDelete').modal('hide');
+                        show_cli_battery();
+                    }
+                })
+            })
+    })
+
+</script>
+
+<script>
+    // Start Checklist CLI Forklift
+    function approve(txtActivityCode_header){
+        $.ajax({
+            url : "<?php echo base_url('forklift/create_StartChecklist')?>",
+            type: "post",
+            // dataType: "json",
+            data: {txtActivityCode_header : txtActivityCode_header},
+            success: function(data){
+                if(data == 'true'){
+                    swal("SUCCESS!","DATA DETAIL CLI HAS BEEN INSERTED !!!","success");
+                    window.location.href="<?php echo site_url('page/edit_cli_forklift'); ?>?e="+txtActivityCode_header;
+                }else if(data == 'hasInserted'){
+                    window.location.href="<?php echo site_url('page/edit_cli_forklift'); ?>?e="+txtActivityCode_header;
+                }else{
+                    swal("FAILED !!!","FAILED TO ADD DATA !!!","warning");
+                }
+            }
+        })
+    }
+</script>
+
 <script>
         $(document).ready(function() {
 

@@ -94,6 +94,30 @@ class Page extends MY_Controller
 		}
 	}
 
+	// CLI BATTERY
+	public function cli_battery()
+	{
+		if ($this->session->userdata('role') == '1') {
+			$this->render_cli_battery('cli_battery');
+		} else if ($this->session->userdata('role') == '2') {
+			$this->render_cli_battery('cli_battery');
+		} else {
+			show_404();
+		}
+	}
+
+	// APPROVE CLI FORKLIFT & BATTERY
+	public function approve_cli_forklift()
+	{
+		if ($this->session->userdata('role') == '1') {
+			$this->render_approve_cli_forklift('cli_forklift');
+		} else if ($this->session->userdata('role') == '2') {
+			$this->render_approve_cli_forklift('cli_forklift');
+		} else {
+			show_404();
+		}
+	}
+
 	//////////////////////////////////// WEB MANAGER ///////////////////////////////////
 
 	
