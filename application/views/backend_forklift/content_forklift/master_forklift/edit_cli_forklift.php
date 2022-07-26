@@ -60,45 +60,53 @@
                                                 <button class="btn btn-primary" type="submit" id="btn_create_itemcli">Scan</button>
                                             </div> -->
 
-                                            <input type="text" class="form-control" name="txtBarcodeitem_detail" id="txtBarcodeitem_detail" class="form-control" placeholder="Scan.." onkeyup="ScanItem()">
-                                            
+                                            <input type="text" class="form-control" name="txtBarcodeitem_detail" id="txtBarcodeitem_detail" class="form-control" placeholder="Scan.." onchange="ScanItem()">
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center mt-3">
-                                        <!-- when data success -->
-                                        <?php if($this->session->flashdata('success')): ?>
-                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                                <strong>SUCCESS!</strong> <?= $this->session->flashdata('success'); ?>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                        
-                                        <?php elseif($this->session->flashdata('failed')): ?>
-                                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                    <strong>ERROR!</strong> <?= $this->session->flashdata('failed'); ?>
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
+                                    <!-- when data success -->
+                                    <?php if ($this->session->flashdata('success')) : ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong>SUCCESS!</strong> <?= $this->session->flashdata('success'); ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
 
-                                        <?php elseif($this->session->flashdata('has scanned')): ?>
-                                                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                                    <strong>ERROR!</strong> <?= $this->session->flashdata('has scanned'); ?>
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
+                                    <?php elseif ($this->session->flashdata('failed')) : ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>ERROR!</strong> <?= $this->session->flashdata('failed'); ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
 
-                                        <?php elseif($this->session->flashdata('undefined')): ?>
-                                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                                    <strong>ERROR!</strong> <?= $this->session->flashdata('undefined'); ?>
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                        <?php endif; ?>
+                                    <?php elseif ($this->session->flashdata('has scanned')) : ?>
+                                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                            <strong>ERROR!</strong> <?= $this->session->flashdata('has scanned'); ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                    <?php elseif ($this->session->flashdata('undefined')) : ?>
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>ERROR!</strong> <?= $this->session->flashdata('undefined'); ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                    <?php elseif ($this->session->flashdata('status failed')) : ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>ERROR!</strong> <?= $this->session->flashdata('status failed'); ?>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </td>
                         </tr>
@@ -124,7 +132,10 @@
 
                         <?php
                         $no = 1;
-                        foreach ($detail->result_array() as $dt) : ?>
+                        foreach ($detail->result_array() as $dt) :
+                            $activitycode = $dt['txtActivityCode_detail'];
+                            $barcodeitem = $dt['txtBarcodeitem_detail'];
+                        ?>
                             <tr>
                                 <td><?= $no++; ?></td>
                                 <td>
@@ -181,11 +192,16 @@
 
                                         <input type="hidden" id="intDetailcliID" name="intDetailcliID" value="<?php echo $dt['intDetailcliID']; ?>">
 
-                                        <input type="text" name="txtBarcodeitem_detail" id="txtBarcodeitem_detail" class="form-control" placeholder="Scan..">
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="txtBarcodeitem_detail" id="txtBarcodeitem_detail" class="form-control" placeholder="Scan..">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="submit">Scan</button>
+                                            </div>
+                                        </div>
                                     </form>
 
                                     <!-- <a href="#" class="btn btn-success" onclick="scanManual('<?= $dt['intDetailcliID']; ?>', '<?= $dt['txtBarcodeitem_detail']; ?>')" >Scan Manual</a> -->
-                                    
+
                                     <!-- <input type="text" name="txtBarcodeitem_detail" id="txtBarcodeitem_detail" class="form-control" placeholder="Scan..">
 
                                     <button class="btn btn-success" onclick="scanManual('<?= $dt['intDetailcliID']; ?>', '<?= $dt['txtBarcodeitem_detail']; ?>')" >Scan Manual</button> -->
@@ -243,39 +259,49 @@
                         </tr>
                     </table>
 
-                    <div class="d-flex justify-content-center mt-3">
+                    <!-- <div class="d-flex justify-content-center mt-3">
                         <a href="#" data-toggle="modal" data-target="#modalFinished" class="btn btn-lg btn-success" id="finish_cli_forklift" data-finish="<?= $dt['intCliForkliftID']; ?>">Submit</a>
-                    </div>
+                    </div> -->
+
+
+                    <form action="<?= base_url('forklift/finishCliForklift'); ?>" method="POST">
+                        <input type="hidden" name="txtActivityCode_detail" value="<?= $activitycode; ?>">
+                        <input type="hidden" name="txtBarcodeitem_detail" value="<?= $barcodeitem; ?>">
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="btn btn-lg btn-success" type="submit">Submit</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="modalScanManual" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Scan Item Manual</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-            <input type="hidden" id="txtActivityCode_header" value="<?php echo $dt['txtActivityCode_header']; ?>">
-            <input type="hidden" class="form-control" id="intDetailcliID" name="intDetailcliID">
-            <label for="Barcode Item">Barcode Item</label>
-            <input type="text" class="form-control" id="txtBarcodeitem_detail" name="txtBarcodeitem_detail">
+<!-- <div class="modal fade" id="modalScanManual" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Scan Item Manual</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="hidden" id="txtActivityCode_header" value="<?php echo $dt['txtActivityCode_header']; ?>">
+                    <input type="hidden" class="form-control" id="intDetailcliID" name="intDetailcliID">
+                    <label for="Barcode Item">Barcode Item</label>
+                    <input type="text" class="form-control" id="txtBarcodeitem_detail" name="txtBarcodeitem_detail">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="scanManual('<?= $dt['intDetailcliID']; ?>', '<?= $dt['txtBarcodeitem_detail']; ?>')">Scan</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="scanManual('<?= $dt['intDetailcliID']; ?>', '<?= $dt['txtBarcodeitem_detail']; ?>')" >Scan</button>
-      </div>
     </div>
-  </div>
-</div>
+</div> -->
 
 
 <!-- Modal Finished -->
@@ -291,6 +317,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="intCliForkliftID" id="intCliForkliftID" class="form-control">
+                    <input type="hidden" name="txtActivityCode_header" id="txtActivityCode_header" class="form-control">
                     <h4>Have you cleaned all the items?</h4>
                 </div>
                 <div class="modal-footer">
@@ -301,4 +328,3 @@
         </div>
     </div>
 </form>
-

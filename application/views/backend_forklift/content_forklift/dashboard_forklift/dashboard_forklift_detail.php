@@ -112,7 +112,7 @@
                                         <?php foreach($transaksi_forklift -> result_array() as $transaksi_forklift): ?>
                                         <tr class="gradeX">
                                             <td><?= $transaksi_forklift['txtArea']; ?></td>
-                                            <td><?= $transaksi_forklift['txtVersionwh']; ?></td>
+                                            <td><?= $transaksi_forklift['txtJenisForklift_header']; ?></td>
                                             <td><?= $transaksi_forklift['txtVersioneng']; ?></td>
                                             <td><?= $transaksi_forklift['txtSerialnumber']; ?></td>
                                             <td><?= $transaksi_forklift['txtPicforklift']; ?></td>

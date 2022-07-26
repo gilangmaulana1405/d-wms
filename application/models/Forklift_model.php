@@ -479,10 +479,21 @@ class Forklift_model extends CI_Model{
   }
 
   // CEK APAKAH ITEM FORKLIFT SUDAH DI SCAN ATAU BELUM
-  public function cek_scan($txtBarcodeitem){
+  public function cek_scan($txtBarcodeitem, $activity){
     $this->db->select('*');
     $this->db->from('trdwms_detailcli');
     $this->db->where('txtBarcodeitem_detail',$txtBarcodeitem);
+    $this->db->where('txtActivityCode_detail',$activity);
+    $this->db->where('intScanBarcode', 1);
+    $this->db->where('bitActive_detail', 1);
+
+    return $this->db->count_all_results();
+  }
+  public function cek_scan2($txtBarcodeitem, $activity){
+    $this->db->select('*');
+    $this->db->from('trdwms_detailcli');
+    $this->db->where('txtBarcodeitem_detail',$txtBarcodeitem);
+    $this->db->where('txtActivityCode_detail',$activity);
     $this->db->where('intScanBarcode', 1);
     $this->db->where('bitActive_detail', 1);
 
@@ -510,7 +521,7 @@ class Forklift_model extends CI_Model{
   }
 
   // UPDATE DATA YANG DI SCAN
-  public function scan_item($txtActivityCode, $txtBarcodeitem, $item){
+  public function scan_item($activitycode, $txtBarcodeitem, $item){
     $array = array(
       "txtBarcodeitem_detail" => "$txtBarcodeitem",
       "intScanBarcode" => 1,
@@ -518,7 +529,7 @@ class Forklift_model extends CI_Model{
       "dtmUpdatedDate_item" => date("Y-m-d H:i:s"),
     );
     
-    // $this->db->where('txtActivityCode_detail', $txtActivityCode);
+    $this->db->where('txtActivityCode_detail', $activitycode);
     $this->db->where('txtItempart', $item);
     $this->db->update('trdwms_detailcli', $array);
     if($this->db->affected_rows() > 0){
@@ -567,16 +578,37 @@ class Forklift_model extends CI_Model{
   }
 
   // FINISH CLI
-  public function m_finish_cliforklift($table, $intCliForkliftID)
+  public function m_finish_cliforklift($table, $intCliForkliftID, $activitycode)
   {
     $data = array(
       'bitOpen' => 0,
-      'bitClose' => 1
+      'bitClose' => 1,
     );
 
-    return $this->db->where('intCliForkliftID', $intCliForkliftID)->update($table, $data);
+    $this->db->where('intCliForkliftID', $intCliForkliftID);
+    $this->db->where('txtActivityCode_header', $activitycode);
+    $this->db->update($table, $data);
+
+    if($this->db->affected_rows() > 0){
+      return true;
+    }else{
+      return false;
+    }
+
+    // return $this->db->where('intCliForkliftID', $intCliForkliftID)->update($table, $data);
   }
 
+  public function m_cek_statusScanBarcode($activitycode, $barcodeitem)
+  {
+    $this->db->select('*');
+    $this->db->from('trdwms_detailcli');
+    $this->db->where('txtActivityCode_detail', $activitycode);
+    $this->db->where('txtBarcodeitem_detail', $barcodeitem);
+    $this->db->where('intScanBarcode', 1);
+
+    return $this->db->count_all_results();
+
+  }
 
   // APPROVE CLI FORKLIFT
   public function get_approve_cli_forklift()

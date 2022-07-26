@@ -56,11 +56,13 @@ class Forklift extends MY_Controller
 		$txtBarcodeitem = $this->input->post('txtBarcodeitem_detail');
 		$activitycode = $this->input->post('txtActivityCode_header');
 
+		// exit(var_dump($activitycode));
+
 		// CEK APAKAH BARCODE YG DI SCAN ADA DI MASTER ITEM ATAU TIDAK
 		$cek_barcode = $this->Forklift_model->scan_item_forklift($txtBarcodeitem);
 		if($cek_barcode > 0){
 			// CEK APAKAH BARCODE SUDAH DI SCAN ATAU BELUM
-			$cek_scan = $this->Forklift_model->cek_scan($txtBarcodeitem);
+			$cek_scan = $this->Forklift_model->cek_scan2($txtBarcodeitem, $activitycode);
 			if($cek_scan == 0){
 				// CARI ITEM YANG AKAN DI SCAN 
 				$dt_item = $this->Forklift_model->item_barcode($txtBarcodeitem)->row_array();
@@ -93,7 +95,7 @@ class Forklift extends MY_Controller
 		$cek_barcode = $this->Forklift_model->scan_item_forklift($txtBarcodeitem);
 		if($cek_barcode > 0){
 			// CEK APAKAH BARCODE SUDAH DI SCAN ATAU BELUM
-			$cek_scan = $this->Forklift_model->cek_scan($txtBarcodeitem);
+			$cek_scan = $this->Forklift_model->cek_scan($txtBarcodeitem, $activitycode);
 			if($cek_scan == 0){
 				// CARI ITEM YANG AKAN DI SCAN 
 				$dt_item = $this->Forklift_model->item_barcode($txtBarcodeitem)->row_array();
@@ -240,25 +242,36 @@ class Forklift extends MY_Controller
 		}
 	}
 
-	// public function updateStartChecklist()
-	// {
-	// 	$txtBarcodeitem = $this->input->post('txtBarcodeitem_detail');
-	// 	$data = $this->Forklift_model->m_update_startchecklist('trdwms_detailcli', $txtBarcodeitem);
-	// 	echo json_encode($data);
-	// }
-
-	// public function scanManual()
-	// {
-	// 	$intDetailcliID = $this->input->post('intDetailcliID');
-	// 	$data = $this->Forklift_model->m_scanManual('trdwms_detailcli', $intDetailcliID);
-	// 	echo json_encode($data);
-	// }
 
 	public function finishCliForklift()
 	{
 		$intCliForkliftID = $this->input->post('intCliForkliftID');
-		$data = $this->Forklift_model->m_finish_cliforklift('trdwms_headercli', $intCliForkliftID);
-		echo json_encode($data);
+		$activitycode = $this->input->post('txtActivityCode_detail');
+		$barcodeitem = $this->input->post('txtBarcodeitem_detail');
+
+				
+			// var_dump($cek_status);
+			// die();
+
+			$cek_barcode = $this->Forklift_model->scan_item_forklift($barcodeitem);
+			if($cek_barcode > 0){
+				$cek_status = $this->Forklift_model->m_cek_statusScanBarcode($activitycode, $barcodeitem);
+				
+				if($cek_status == '1'){
+					// jika success
+					$data = $this->Forklift_model->m_finish_cliforklift('trdwms_headercli', $intCliForkliftID, $activitycode);
+					$this->session->set_flashdata('status success', 'DATA ITEM CLI FORKLIFT HAS BEEN CLEANED');				
+					$this->session->flashdata('status success');
+					redirect('page/cli_forklift');
+				}else{
+					// jika gagal
+					$this->session->set_flashdata('status failed', 'DATA ITEM CLI FORKLIFT NOT FINISH CLEANING YET');
+					$this->session->flashdata('status failed');
+					redirect('page/edit_cli_forklift?e='. $activitycode);
+				}
+			}else{
+
+			}
 	}
 
 

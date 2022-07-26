@@ -28,6 +28,16 @@
             </div>
             <div class="ibox">
                 <div class="ibox-content">
+
+                <?php if ($this->session->flashdata('status success')) : ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>SUCCESS!</strong> <?= $this->session->flashdata('status success'); ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php endif; ?>
+
                     <div class="table-responsive">
                     <table id="myTable" class="table table-striped table-bordered table-hover dataTables-example" style="width:100%">
                         <thead>

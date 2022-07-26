@@ -38,7 +38,7 @@
                                         <i class="fa fa-list fa-5x"></i>
                                     </div>
                                     <div class="col-8 text-right">
-                                        <span> Data Header </span>
+                                        <span> Data Open </span>
                                         <h2 class="font-bold"><?= $countOpen; ?></h2>
                                     </div>
                                 </div>
@@ -51,7 +51,7 @@
                                         <i class="fa fa-edit fa-5x"></i>
                                     </div>
                                     <div class="col-8 text-right">
-                                        <span> Data Detail </span>
+                                        <span> Data Close </span>
                                         <h2 class="font-bold"><?= $countClose; ?></h2>
                                     </div>
                                 </div>

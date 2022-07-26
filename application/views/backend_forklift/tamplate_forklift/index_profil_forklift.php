@@ -755,28 +755,27 @@
             $('#intCliForkliftID').val(intCliForkliftID);
         })
 
-        $('#btn_finish_cli_forklift').on('click', function(){
-            var intCliForkliftID = $('#intCliForkliftID').val();
+        // $('#btn_finish_cli_forklift').on('click', function(){
+        //     var intCliForkliftID = $('#intCliForkliftID').val();
+        //     var activitycode = $('#txtActivityCode_header').val();
             
-            $.ajax({
-                url: '<?php echo base_url('forklift/finishCliForklift'); ?>',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    'intCliForkliftID': intCliForkliftID
-                },
-                success: function (data){   
+        //     $.ajax({
+        //         url: '<?php echo base_url('forklift/finishCliForklift'); ?>',
+        //         type: 'post',
+        //         dataType: 'json',
+        //         data: {
+        //             'intCliForkliftID': intCliForkliftID,
+        //             'txtActivityCode_header': activitycode
+        //         },
+        //         success: function (data){  
+        //                 swal("SUCCESS!","CLEANING FORKLIFT HAS BEEN FINISHED!","success");
+        //                 $('#modalFinished').modal('hide');
+        //                 window.location.href="<?php echo site_url('page/cli_forklift'); ?>";
+        //         }
+        //     })
 
-                    if(data == ''){
-
-                    }
-
-                    swal("SUCCESS!","CLEANING FORKLIFT HAS BEEN FINISHED!","success");
-                    $('#modalFinished').modal('hide');
-                    window.location.href="<?php echo site_url('page/cli_forklift'); ?>";
-                }
-            })
-        })
+           
+        // })
         
         
     });
@@ -786,8 +785,8 @@
     function ScanItem()
     {
         var txtActivityCode_header = $('#txtActivityCode_header').val();
-            var txtBarcodeitem_detail = $('#txtBarcodeitem_detail').val();
-
+        var txtBarcodeitem_detail = $('#txtBarcodeitem_detail').val();
+        
             if(txtBarcodeitem_detail == ''){
                 swal("ERROR BARCODE ITEM!","DATA IS NULL !!!","warning");
             }else{
@@ -802,10 +801,10 @@
                             swal("SUCCESS!","ITEM CLI FORKLIFT HAS BEEN SCAN!","success");   
                         }else if(data == 'false'){
                             swal("ERROR BARCODE ITEM!","PROCCESS SCAN FAILED !!!","error");
-                        }else if(data == 'undifined'){
-                            swal("ERROR BARCODE ITEM!","BARCODE UNDIFINED !!!","warning");
                         }else if(data == 'has scanned'){
                             swal("ERROR BARCODE ITEM!","BARCODE HAS SCANNED !!!","info");
+                        }else if(data == 'undifined'){
+                            swal("ERROR BARCODE ITEM!","BARCODE UNDIFINED !!!","warning");
                         }
 
                         $('#txtBarcodeitem_detail').val('');
